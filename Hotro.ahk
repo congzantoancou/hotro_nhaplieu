@@ -129,6 +129,30 @@ return
 		MouseMove, x, y
 	return
 	F6::
+		Clipboard :=
+		Send, ^a
+		Sleep, 10
+		Send, ^c
+		Sleep, 10
+		var := Clipboard
+		
+		if (Strlen(var) == 0)
+		{
+			Send, {Tab}
+			return
+		}
+		
+		; Date formating
+		if var is integer
+		{
+			if (StrLen(var) == 8)
+			{
+				result := SubStr(var,1,2) "/" SubStr(var,3,2) "/" SubStr(var,5,4)
+				Send % result
+			}
+		}
+		Clipboard :=
+
 		MouseGetPos, x, y
 		MouseMove, p2x, p2y
 		Send, {LButton 2}
@@ -186,34 +210,62 @@ return
 		; Copy the string
 		Clipboard :=
 		Send, ^a
-		Sleep, 10
+		Sleep, 1
 		Send, ^c
-		Sleep, 10
+		Sleep, 1
 		var := Clipboard
 		
+		; Empty string
 		if (Strlen(var) == 0)
 		{
 			Send, {Tab}
 			return
 		}
 		
-		; Date formating
+		; Nummerous string
 		if var is integer
 		{
+			; Date formating
 			if (StrLen(var) == 8)
 			{
 				result := SubStr(var,1,2) "/" SubStr(var,3,2) "/" SubStr(var,5,4)
 				Send % result
+				return
+			}
+			
+			; Skip homephone
+			if (Strlen(var) == 10 or Strlen(var) == 11)
+			{
+				Send, {right}
+				Send, {tab 2}
+				return
 			}
 		}
 
-		; Title case (Capitalized)
+		; Title Case (Capitalized)
+		/*
 		if not (RegExMatch(var, "\d+"))
 		{
 			StringUpper, result, var, T
 			Sleep, 40
 			Send % result
 		}
+		*/
+		
+		result := RegExReplace(var, ",(\S)", ", $1") ; format after comma
+		StringUpper, result, result, T ; format string to Title Case
+		; Format uppercase to lowercase
+		;StringReplace, result, result, Đường, đường, All
+		StringReplace, result, result, Thôn, thôn, All
+		StringReplace, result, result, Khóm, khóm, All
+		StringReplace, result, result, Buôn, buôn, All
+		StringReplace, result, result, Xóm, xóm, All
+		StringReplace, result, result, Đội, đội, All
+		StringReplace, result, result, Bản, bản, All
+		;StringReplace, result, result, Khu, khu, All
+		StringReplace, result, result, Tổ, tổ, All
+		StringReplace, result, result, Ấp, ấp, All
+		Send % result
 		
 		; Move tab
 		Clipboard :=

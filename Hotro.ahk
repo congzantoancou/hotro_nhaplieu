@@ -152,12 +152,12 @@ return
 			}
 		}
 		Clipboard :=
-
-		MouseGetPos, x, y
-		MouseMove, p2x, p2y
-		Send, {LButton 2}
-		Send, ^a
-		MouseMove, x, y
+		Noicap:		
+			MouseGetPos, x, y
+			MouseMove, p2x, p2y
+			Send, {LButton 2}
+			Send, ^a
+			MouseMove, x, y
 	return
 	F7::
 		MouseGetPos, x, y
@@ -230,6 +230,7 @@ return
 			{
 				result := SubStr(var,1,2) "/" SubStr(var,3,2) "/" SubStr(var,5,4)
 				Send % result
+				goto, Noicap ; FOR LOW VERSION OF Quản lý sinh viên
 				return
 			}
 			
@@ -242,6 +243,13 @@ return
 			}
 		}
 
+		; FOR LOW VERSION OF Quản lý sinh viên
+		if RegExMatch(var, "\d+/\d+/\d+") ; it was date formated
+		{
+			Send, {right}
+			goto, Noicap
+			return
+		}
 		; Title Case (Capitalized)
 		/*
 		if not (RegExMatch(var, "\d+"))

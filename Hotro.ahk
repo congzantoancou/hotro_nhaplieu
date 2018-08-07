@@ -1,9 +1,4 @@
-/* 
-* Chương trình Hỗ trợ nhập liệu phần mềm Quản lý sinh viên
-* Version: 8.0
-*/
-
-#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
@@ -134,30 +129,6 @@ return
 		MouseMove, x, y
 	return
 	F6::
-		Clipboard :=
-		Send, ^a
-		Sleep, 10
-		Send, ^c
-		Sleep, 10
-		var := Clipboard
-		
-		if (Strlen(var) == 0)
-		{
-			Send, {Tab}
-			return
-		}
-		
-		; Date formating
-		if var is integer
-		{
-			if (StrLen(var) == 8)
-			{
-				result := SubStr(var,1,2) "/" SubStr(var,3,2) "/" SubStr(var,5,4)
-				Send % result
-			}
-		}
-		Clipboard :=
-
 		MouseGetPos, x, y
 		MouseMove, p2x, p2y
 		Send, {LButton 2}

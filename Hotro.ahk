@@ -48,55 +48,55 @@ return
 
 ; ________________ INSIDE ___________________
 #If Getkeystate("ScrollLock", "T") and Winactive("Quản lý sinh viên")
-	
+	~Enter::Tab
 	; MACRO
-	:?*:ny::Nguyễn
-	:?*:n.::Nguyễn
-	:?*:nt::Nguyễn Thị
-	:?*:tf::Trần
-	:?*:pp::Phạm
-	:?*:pn::Phan
-	:?*:t.::Thị
-	:?*:v.::Văn
-	:?*:ds::Đức
-	:?*:dj::Đặng
-	:?*:dx::Đỗ
-	:?*:bf::Bùi
-	;:?*:tg::Trương
-	;:?*:hn::Huỳnh
-	;:?*:hg::Hoàng
+	:*:ny::Nguyễn
+	:*:n.::Nguyễn
+	:*:nt::Nguyễn Thị
+	:*:tf::Trần
+	:*:pp::Phạm
+	:*:pn::Phan
+	:*:t.::Thị
+	:*:v.::Văn
+	:*:ds::Đức
+	:*:dj::Đặng
+	:*:dx::Đỗ
+	:*:bf::Bùi
+	:*:tg::Trương
+	:*:hn::Huỳnh
+	:*:hg::Hoàng
 
-	:?*:nn::Nông dân
-	:?*:cc::Công nhân
-	:?*:ww::Ngư dân
-	:?*:gg::Giáo viên
-	:?*:td::Tự do
-	:?*:hh::Học sinh
-	:?*:ss::Sinh viên
-	:?*:rr::Nội trợ
-	:?*:nv::NVVP
-	:?*:kk::Kinh doanh
-	:?*:bb::Buôn bán
-	:?*:xx::Xây dựng
-	:?*:ke::Kế toán
-	:?*:ll::Lao động tự do
-	;:?*:tx::Tài xế
+	:*:nn::Nông dân
+	:*:cc::Công nhân
+	:*:ww::Ngư dân
+	:*:gg::Giáo viên
+	:*:td::Tự do
+	:*:hh::Học sinh
+	:*:ss::Sinh viên
+	:*:rr::Nội trợ
+	:*:nv::NVVP
+	:*:kk::Kinh doanh
+	:*:bb::Buôn bán
+	:*:xx::Xây dựng
+	:*:ke::Kế toán
+	:*:ll::Lao động tự do
+	:*:txe::Tài xế
 
 
-	:?*:gm::@gmail.com
+	:*?:gm::@gmail.com
 	
-	:?*:c.::Chị
-	:?*:a.::Anh
-	:*?:e.::Em
+	:*:c.::Chị
+	:*:a.::Anh
+	:*:e.::Em
 	
-	:?*:d.::đường
-	:?*:tn::thôn
-	:?*:x.::xóm
-	:?*:tz::tổ
-	:?*:kp::KP
-	:*?:ap::ấp
+	:*:d.::đường
+	:*:tn::thôn
+	:*:x.::xóm
+	:*:tz::tổ
+	:*:kp::KP
+	:*:ap::ấp
 
-	:?*:182::18211
+	:*:182::18211
 
 ;___________________________________
 	
@@ -204,7 +204,7 @@ return
 ;___________________________________
 	
 	; TAB MAPPING
-	\:: Tab
+	\:: Send, {Tab}
 	`:: Send, {Tab 2}
 	$Tab::
 		; Copy the string
@@ -263,7 +263,8 @@ return
 		result := RegExReplace(var, ",(\S)", ", $1") ; format after comma
 		StringUpper, result, result, T ; format string to Title Case
 		; Format uppercase to lowercase
-		;StringReplace, result, result, Đường, đường, All
+		StringReplace, result, result, Đường, đường, All
+		StringReplace, result, result, bình đường, Bình Đường, All
 		StringReplace, result, result, Thôn, thôn, All
 		StringReplace, result, result, Khóm, khóm, All
 		StringReplace, result, result, Buôn, buôn, All

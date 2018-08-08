@@ -97,10 +97,11 @@ return
 	:*:ap::ấp
 
 	:*:182::18211
+#if
 
-;___________________________________
+;==================================
 	
-	#IfWinActive, Quản lý sinh viên
+#IfWinActive, Quản lý sinh viên
 
 	; FUNCTION KEYS
 	F2:: Send, ^s
@@ -172,7 +173,10 @@ return
 		MouseMove, p4x, p4y
 		Send, {LButton 2}
 		Send, ^a
+		Send, {bs}
+		Send, {tab}
 		MouseMove, x, y
+		goto, F9
 	return
 ;__________________________________
 	F9::
@@ -203,7 +207,7 @@ return
 		MouseMove, x, y
 	return
 ;___________________________________
-	
+
 	; TAB MAPPING
 	\:: Send, {Tab}
 	`:: Send, {Tab 2}
@@ -215,12 +219,20 @@ return
 		Sleep, 1
 		Send, ^c
 		Sleep, 1
+		last := var
+		ToolTip % last
 		var := Clipboard
 		
 		; Empty string
 		if (Strlen(var) == 0)
 		{
 			Send, {Tab}
+			return
+		}
+		
+		if InStr(var, "xã") or InStr(var, "phường") or InStr(var, "thị trấn")
+		{
+			goto, F8
 			return
 		}
 		
@@ -239,8 +251,16 @@ return
 			; Skip homephone
 			if (Strlen(var) == 10 or Strlen(var) == 11)
 			{
-				Send, {right}
-				Send, {tab 2}
+				if  InStr(last, "Anh") or InStr(last, "Chị") or InStr(last, "Em")
+				{
+					Send, {right}
+					Send, {tab}
+				}
+				else
+				{
+					Send, {right}
+					Send, {tab 2}
+				}
 				return
 			}
 		}
@@ -264,6 +284,7 @@ return
 		
 		result := RegExReplace(var, ",(\S)", ", $1") ; format after comma
 		StringUpper, result, result, T ; format string to Title Case
+		
 		; Format uppercase to lowercase
 		StringReplace, result, result, Đường, đường, All
 		StringReplace, result, result, bình đường, Bình Đường, All
@@ -276,6 +297,24 @@ return
 		;StringReplace, result, result, Khu, khu, All
 		StringReplace, result, result, Tổ, tổ, All
 		StringReplace, result, result, Ấp, ấp, All
+		StringReplace, result, result, Ii, II, All
+		StringReplace, result, result, Iii, III, All
+		StringReplace, result, result, Iv, IV, All
+		StringReplace, result, result, Kp, KP., All
+		StringReplace, result, result, .., ., All
+		
+		if not (RegExMatch(var, "\d+")) ; If not contains number
+		{
+			StringReplace, result, result, Nông Dân, Nông dân, All
+			StringReplace, result, result, Ngư Dân, Ngư dân, All
+			StringReplace, result, result, Công Nhân, Công nhân, All
+			StringReplace, result, result, Sinh Viên, Sinh viên, All
+			StringReplace, result, result, Giáo Viên, Giáo viên, All
+			StringReplace, result, result, Kế Toán, Kế toán, All
+			StringReplace, result, result, Học Sinh, Học sinh, All
+			StringReplace, result, result, Buôn bán, Buôn bán, All
+		}
+		
 		Send % result
 		
 		; Move tab
@@ -284,10 +323,9 @@ return
 		Send, {Tab}
 	return
 	
-#If
+#IfWinActive
 
 ; ________________ OUTSIDE ___________________
-
 
 #p::
 	MouseGetPos, x, y
@@ -299,4 +337,9 @@ return
 ^Bs:: Send, ^+{Left}{Bs}
 Pause:: suspend
 #j:: run, shell:Downloads
-
+#IfWinActive, Hotro
+	F5::
+		Send, ^s
+		Reload
+	return
+#IfWinActive

@@ -230,10 +230,14 @@ return
 			return
 		}
 		
+		if InStr(var, "@")
+		{
+			goto, F5
+		}
+		
 		if InStr(var, "xã") or InStr(var, "phường") or InStr(var, "thị trấn")
 		{
 			goto, F8
-			return
 		}
 		
 		; Nummerous string

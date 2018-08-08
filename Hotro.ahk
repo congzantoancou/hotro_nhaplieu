@@ -101,8 +101,7 @@ return
 ;___________________________________
 	
 	#IfWinActive, Quản lý sinh viên
-	~Enter::Tab
-	
+
 	; FUNCTION KEYS
 	F2:: Send, ^s
 
@@ -208,6 +207,7 @@ return
 	; TAB MAPPING
 	\:: Send, {Tab}
 	`:: Send, {Tab 2}
+	~Enter::
 	$Tab::
 		; Copy the string
 		Clipboard :=

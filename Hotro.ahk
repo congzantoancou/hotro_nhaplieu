@@ -48,7 +48,7 @@ return
 
 ; ________________ INSIDE ___________________
 #If Getkeystate("ScrollLock", "T") and Winactive("Quản lý sinh viên")
-	~Enter::Tab
+	
 	; MACRO
 	:*:ny::Nguyễn
 	:*:n.::Nguyễn
@@ -101,6 +101,8 @@ return
 ;___________________________________
 	
 	#IfWinActive, Quản lý sinh viên
+	~Enter::Tab
+	
 	; FUNCTION KEYS
 	F2:: Send, ^s
 

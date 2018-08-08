@@ -210,7 +210,7 @@ return
 
 	; TAB MAPPING
 	\:: Send, {Tab}
-	`:: Send, {Tab 2}
+	`:: Send, +{Tab}
 	~Enter::
 	$Tab::
 		; Copy the string
@@ -264,6 +264,14 @@ return
 				return
 			}
 		}
+		
+		; SKIP ANH CHỊ EM PHONE NUMBER
+		if  InStr(var, "Anh") or InStr(var, "Chị") or InStr(var, "Em")
+		{
+			Send, {right}
+			Send, {tab 2}
+			return
+		}		
 
 		; FOR LOW VERSION OF Quản lý sinh viên
 		if RegExMatch(var, "\d+/\d+/\d+") ; it was date formated

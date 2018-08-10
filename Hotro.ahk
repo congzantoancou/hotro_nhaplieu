@@ -223,6 +223,12 @@ return
 		ToolTip % last
 		var := Clipboard
 		
+		; F3 to F4
+		if (InStr(var, "18211")
+		{
+			goto, F4
+		}
+		
 		; F6 to F7
 		if last is integer
 		{

@@ -3,7 +3,7 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 SetTitleMatchMode, 2
-
+parent := 0
 ; ________________ DECLARATION ___________________
 
 ; f4
@@ -102,7 +102,7 @@ return
 ;==================================
 	
 #IfWinActive, Quản lý sinh viên
-
+	
 	; FUNCTION KEYS
 	F2:: Send, ^s
 
@@ -211,7 +211,9 @@ return
 	; TAB MAPPING
 	\:: Send, {Tab}
 	`:: Send, +{Tab}
-	;~Enter::
+	~Enter::
+		parent := 0
+	return
 	$Tab::
 		; Copy the string
 		Clipboard :=
@@ -220,7 +222,6 @@ return
 		Send, ^c
 		Sleep, 1
 		
-		parent := 0
 		prelast := last
 		last := var
 		var := Clipboard

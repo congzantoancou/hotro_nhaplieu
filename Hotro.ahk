@@ -211,7 +211,7 @@ return
 	; TAB MAPPING
 	\:: Send, {Tab}
 	`:: Send, +{Tab}
-	~Enter::
+	;~Enter::
 	$Tab::
 		; Copy the string
 		Clipboard :=
@@ -222,6 +222,17 @@ return
 		last := var
 		ToolTip % last
 		var := Clipboard
+		
+		; F6 to F7
+		if last is integer
+		{
+			; Date formating
+			if (StrLen(last) == 8)
+			{
+				goto, F7
+				return
+			}
+		}
 		
 		; Empty string
 		if (Strlen(var) == 0)

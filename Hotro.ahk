@@ -219,8 +219,10 @@ return
 		Sleep, 1
 		Send, ^c
 		Sleep, 1
+		
+		parent := 0
+		prelast := last
 		last := var
-		ToolTip % last
 		var := Clipboard
 		
 		; F3 to F4
@@ -243,6 +245,10 @@ return
 		; Empty string
 		if (Strlen(var) == 0)
 		{
+			if (parent == 1) and RegExMatch(prelast, "\d{4}") ; is current father's phonenum
+				goto, F10
+			if (parent == 2) and RegExMatch(prelast, "\d{4}") ; is current mother's phonenum
+				goto, F11
 			Send, {Tab}
 			return
 		}
@@ -260,6 +266,10 @@ return
 		; Nummerous string
 		if var is integer
 		{
+			; Year of birth
+			if (Strlen(var) == 4)
+				parent := parent + 1
+			
 			; Date formating
 			if (StrLen(var) == 8)
 			{
